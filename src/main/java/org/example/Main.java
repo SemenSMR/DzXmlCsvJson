@@ -45,20 +45,25 @@ public class Main {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
                 if(Node.ELEMENT_NODE == node.getNodeType()){
-                    Element element = (Element) node;
-                    long id = Long.parseLong(element.getAttribute("id"));
-                    String firstName = element.getAttribute("firsName");
-                    String lastName = element.getAttribute("lastName");
-                    String country = element.getAttribute("country");
-                    int age = Integer.parseInt(element.getAttribute("age"));
-                    Employee employee = new Employee(id,firstName,lastName,country,age);
-                    employees.add(employee);
+                    Element employee = (Element) node;
+                    String idString = employee.getElementsByTagName("id").item(0).getTextContent();
+                    long id = 0;
+                    if (!idString.isEmpty()) {
+                        id = Long.parseLong(idString);
+                    }
+                    String firstName = employee.getElementsByTagName("firstName").item(0).getTextContent();
+                    String lastName = employee.getElementsByTagName("lastName").item(0).getTextContent();
+                    String country = employee.getElementsByTagName("country").item(0).getTextContent();
+                    int age = Integer.parseInt(employee.getElementsByTagName("age").item(0).getTextContent());
+                    Employee employ = new Employee(id, firstName, lastName, country, age);
+                    employees.add(employ);
                 }
             }
 
 
         }
-        catch (Exception e) {
+        catch (Exception e
+        ) {
             e.printStackTrace();
         } return employees;
 
